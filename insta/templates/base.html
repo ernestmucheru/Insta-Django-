@@ -1,0 +1,98 @@
+{% load static %}
+{%  %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="{% static 'css/bulma.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  </head>
+  <body>
+    <div class="columns is-mobile is-centered">
+    <div class="column is-half">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Finstagram-icon-transparent-3.png&f=1&nofb=1" width="64" height="64">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+                <span class="material-icons">
+                    home
+                    </span>
+            </a>
+            <a class="navbar-item">
+                <span class="material-icons">
+                  notifications
+                  </span>
+             </a>
+            <a class="navbar-item">
+              <span class="material-icons">
+                explore
+                </span>
+            </a>
+            <a class="navbar-item">
+                <span class="material-icons">
+                    move_to_inbox
+                </span>
+            </a>
+            <a class="navbar-item">
+                <span class="material-icons ">person_outline</span>
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <span class="material-icons">
+                    settings
+                </span>
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Change Password
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <a class="navbar-item">
+                    Report an issue
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                    Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    </div>
+  <section class="section">
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+
+
+        {% block pagination %}
+        
+        {% endblock %}
+    </div>
+  </section>
+
+
+  </body>
+</html>
