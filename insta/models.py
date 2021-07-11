@@ -20,7 +20,7 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return reverse('tags', args=[self.slug])
     def __str__(self):
-        self.title
+        return self.title
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
