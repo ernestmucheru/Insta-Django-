@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.utils.text import slugify
 from django.urls import reverse
+import uuid
 
 # Create your models here.
 
@@ -24,3 +25,16 @@ class Tag(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save()
+class Post(models.Model):
+    id = models.UUID(primary_key=True), default=uuid.uuid4, editable=False)
+    picture = models.ImageField(upload_to=user_directory_path,verbose_name='Picture', null=False)
+    caption = models.TextField(max_length=1500, verbose_name='Caption')
+    posted = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(Tag, related_name='tags')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.IntegerField()
+
+    def get_absolute_url(self):
+        return reverse('postdetails', args=[str(self.id)])
+    def __str__(self):
+        return self.posted
