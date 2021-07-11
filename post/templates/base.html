@@ -15,8 +15,18 @@
     <div class="columns is-mobile is-centered">
     <div class="column is-half">
     {% include 'navbar.html' %}
+
+    
     </div>
     </div>
+    {% block banner %}
+    <section class="section">
+      <div class="container">
+        
+      </div>
+    </section>
+    {% endblock %}
+
   <section class="section">
     <div class="container">
         {% block content %}

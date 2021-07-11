@@ -17,8 +17,8 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Tags'
-    # def get_absolute_url(self):
-    #     return reverse('tags', args=[self.slug])
+    def get_absolute_url(self):
+        return reverse('tags', args=[self.slug])
     def __str__(self):
         return self.title
     def save(self, *args, **kwargs):
@@ -43,6 +43,7 @@ class Post(models.Model):
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE,related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='following')
+    
 class Stream(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='stream_following')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
