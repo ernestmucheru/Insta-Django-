@@ -38,3 +38,6 @@ class Post(models.Model):
         return reverse('postdetails', args=[str(self.id)])
     def __str__(self):
         return self.posted
+class Follow(models.Model):
+    follower = models.ForeignKey(User, on_delete=models.CASCADE,related_name='follower')
+    following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='following')
