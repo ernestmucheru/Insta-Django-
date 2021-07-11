@@ -1,69 +1,7 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html"%}
+{% load static %}
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Instagram</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-</head>
-
-<body>
-  <div class="columns is-mobile is-centered">
-    <div class="column is-half">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <img
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Finstagram-icon-transparent-3.png&f=1&nofb=1"
-              width="64" height="64" />
-          </a>
-
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-            data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item">
-              < </a>
-                <a class="navbar-item">
-                  <span class="material-icons"> notifications </span>
-                </a>
-                <a class="navbar-item">
-                  <span class="material-icons"> explore </span>
-                </a>
-                <a class="navbar-item">
-                  <span class="material-icons"> move_to_inbox </span>
-                </a>
-                <a class="navbar-item">
-                  <span class="material-icons">person_outline</span>
-                </a>
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
-                    <span class="material-icons"> settings </span>
-                  </a>
-
-                  <div class="navbar-dropdown">
-                    <a class="navbar-item"> Change Password </a>
-                    <a class="navbar-item"> Contact </a>
-                    <a class="navbar-item"> Report an issue </a>
-                    <hr class="navbar-divider" />
-                    <a class="navbar-item"> Logout </a>
-                  </div>
-                </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </div>
-  <section class="section">
-    <div class="container">
+{% block content%}
       <div class="columns is-mobile is-centered">
         <div class="column is-half">
           <article class="media">
@@ -72,11 +10,10 @@
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png" />
               </figure>
             </div>
-
             <div class="media-content">
               <div class="content">
-                <h1 style="font-weight: bold;" class="title is-1">Title</h1>
-                <h2 class="subtitle is-3">Subtitle</h2>
+                <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %} {{profile.first_name}} {{profile.last_name}} {%endif%}</h1>
+                <h2 class="subtitle is-3">@{{profile.user}}</h2>
                 <div class="media-right">
                   <button class="button is-info is-active">Follow</button>
                 </div>
@@ -85,76 +22,67 @@
               <nav class="level is-mobile">
                 <div class="level-item has-text-centered">
                   <div>
-                    <p class="heading">Tweets</p>
-                    <p class="title">3,456</p>
+                    <p class="heading">Posts</p>
+                    <p class="title">{{posts_count}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">Following</p>
-                    <p class="title">123</p>
+                    <p class="title">{{following_count}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered">
                   <div>
                     <p class="heading">Followers</p>
-                    <p class="title">456K</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered">
-                  <div>
-                    <p class="heading">Likes</p>
-                    <p class="title">789</p>
+                    <p class="title">{{followers_count}}</p>
                   </div>
                 </div>
               </nav>
-              <p class="subtitle is-3">Born to Shine</p>
+              <p class="subtitle is-3">{% if profile.profile_info %} {{profile.profile_info}} {%endif%}</p>
+              {% if user.is_authenticated and user == profile.user%}
               <button class="button">Edit profile</button>
+              {%endif%}
             </div>
           </article>
         </div>
       </div>
     </div>
   </section>
+
   <div class="columns is-mobile is-centered">
     <div class="column is-half">
       <section class="section">
         <div class="container">
           <div class="tabs is-centered">
             <ul>
-              <li class="is-active">
-                <a><i class="material-icons">pages</i>
+              <li class="{% if url_name == 'profile' %} is-active{% endif %}">
+                <a href="{% url 'profile' profile.user %}"><i class="material-icons">pages</i>
                   Posts
                 </a>
               </li>
-              <li class="is-active">
-                <a><i class="material-icons">bookmark_border</i>
+              <li class="{% if url_name == 'profilefavorites' %} is-active {% endif %}">
+                <a href="{% url 'profilefavorites' profile.user %}"><i class="material-icons">bookmark_border</i>
                   Saved
                 </a>
               </li>
             </ul>
           </div>
+
+
+          {% for post in posts %}
           <div class="columns is-mobile is-multiline is-centred">
             <div class="column is-one-quarter">
               <div class="box">
                 <figure class="image is-256x256">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                  <a href="{{post.get_absolute_url}}"><img src="{{post.picture.url}}" alt="Image"></a>
                 </figure>
               </div>
-            </div>
-            <div class="column is-one-quarter">
-              <div class="box">
-                <figure class="image is-256x256">
-                  <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                </figure>
-              </div>
-            </div>
-
+            </div>           
           </div>
+          {% endfor %}
         </div>
       </section>
     </div>
   </div>
-</body>
-
-</html>
+{% endblock %}
