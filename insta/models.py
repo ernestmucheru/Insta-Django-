@@ -26,18 +26,19 @@ class Tag(models.Model):
             self.slug = slugify(self.title)
         return super().save()
 class Post(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    picture = models.ImageField(upload_to=user_directory_path,verbose_name='Picture', null=False)
-    caption = models.TextField(max_length=1500, verbose_name='Caption')
-    posted = models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(Tag, related_name='tags')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    likes = models.IntegerField()
+	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+	picture = models.ImageField(upload_to=user_directory_path,verbose_name='Picture', null=False)
+	caption = models.TextField(max_length=1500, verbose_name='Caption')
+	posted = models.DateTimeField(auto_now_add=True)
+	tags = models.ManyToManyField(Tag, related_name='tags')
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	likes = models.IntegerField(default=0)
 
-    def get_absolute_url(self):
-        return reverse('postdetails', args=[str(self.id)])
-    def __str__(self):
-        return self.posted
+
+	def get_absolute_url(self):
+		return reverse('postdetails', args=[str(self.id)])
+
+	
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE,related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='following')
