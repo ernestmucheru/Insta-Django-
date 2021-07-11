@@ -17,8 +17,8 @@ class Tag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Tags'
-    def get_absolute_url(self):
-        return reverse('tags', args=[self.slug])
+    # def get_absolute_url(self):
+    #     return reverse('tags', args=[self.slug])
     def __str__(self):
         return self.title
     def save(self, *args, **kwargs):

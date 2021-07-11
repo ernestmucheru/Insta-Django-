@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authy',
-    'insta',
+    'post',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'instagram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'insta/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'post/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

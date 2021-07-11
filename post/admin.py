@@ -1,5 +1,5 @@
 from django.contrib import admin
-from insta.models import Post, Tag, Follow, Stream
+from post.models import Post, Tag, Follow, Stream
 
 # Register your models here.
 admin.site.register(Post)
