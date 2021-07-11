@@ -35,6 +35,7 @@
       </a>
       <a href="{% url 'profile' request.user%}" class="navbar-item">
           <span class="material-icons ">person_outline</span>
+           <strong>{{ request.user }}</strong>
       </a>
       <a class="navbar-item" href="{% url 'newpost'%}">
         <span class="material-icons ">add_circle_outline</span>
