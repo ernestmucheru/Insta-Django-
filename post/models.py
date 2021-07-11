@@ -37,6 +37,7 @@ class Post(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('postdetails', args=[str(self.id)])
+    
 
 	
 class Follow(models.Model):
