@@ -33,7 +33,7 @@
               move_to_inbox
           </span>
       </a>
-      <a class="navbar-item">
+      <a href="{% url 'profile' request.user%}" class="navbar-item">
           <span class="material-icons ">person_outline</span>
       </a>
       <a class="navbar-item" href="{% url 'newpost'%}">

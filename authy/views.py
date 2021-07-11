@@ -5,13 +5,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
-from post.models import Post,Follow
+from post.models import Post,Follow,Stream
 from authy.models import Profile
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.core.paginator import Paginator
 from django.urls import resolve
+from django.db import transaction
+from django.urls import reverse
+
 
 # Create your views here.
 def UserProfile(request, username):
@@ -29,6 +32,9 @@ def UserProfile(request, username):
 	following_count = Follow.objects.filter(follower=user).count()
 	followers_count = Follow.objects.filter(following=user).count()
 
+	#Check follow status
+	follow_status = Follow.objects.filter(following=user, follower=request.user).exists()
+
 	#Pagination
 	paginator = Paginator(posts, 8)
 	page_number = request.GET.get('page')
@@ -43,6 +49,7 @@ def UserProfile(request, username):
 		'posts_count': posts_count,
 		'followers_count': followers_count,
 		'following_count': following_count,
+		'follow_status':follow_status,
 	}
 
 	return HttpResponse(template.render(context, request))
@@ -115,3 +122,25 @@ def EditProfile(request):
 	}
 
 	return render(request, 'edit_profile.html', context)
+
+@login_required
+def follow(request, username, option):
+	following = get_object_or_404(User, username=username)
+
+	try:
+		f, created = Follow.objects.get_or_create(follower=request.user, following=following)
+
+		if int(option) == 0:
+			f.delete()
+			Stream.objects.filter(following=following, user=request.user).all().delete()
+		else:
+			 posts = Post.objects.all().filter(user=following)[:25]
+
+			 with transaction.atomic():
+			 	for post in posts:
+			 		stream = Stream(post=post, user=request.user, date=post.posted, following=following)
+			 		stream.save()
+
+		return HttpResponseRedirect(reverse('profile', args=[username]))
+	except User.DoesNotExist:
+		return HttpResponseRedirect(reverse('profile', args=[username]))

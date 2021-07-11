@@ -14,9 +14,15 @@
               <div class="content">
                 <h1 style="font-weight: bold;" class="title is-1">{% if profile.first_name %} {{profile.first_name}} {{profile.last_name}} {%endif%}</h1>
                 <h2 class="subtitle is-3">@{{profile.user}}</h2>
+                {% if user.is_authenticated and user != profile.user %}
                 <div class="media-right">
-                  <button class="button is-info is-active">Follow</button>
+                  {% if follow_status == True %}
+                  <a href="{% url 'follow' profile.user 0 %}" class="button is-info is-active">Unfollow</a>
+                  {% else %}
+                  <a href="{% url 'follow' profile.user 1 %}"class="button is-info is-active">Follow</a>
+                  {% endif %}
                 </div>
+                {% endif %}
               </div>
 
               <nav class="level is-mobile">
