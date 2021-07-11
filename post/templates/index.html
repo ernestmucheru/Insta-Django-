@@ -4,7 +4,7 @@
 {% block content%}
 <div class="columns is-mobile is-centered">
   <div class="column is-half">
-{% for post_item in post_items %}
+    {% for post_item in post_items %}
     <div class="card">
       <div class="card-image">
         <figure class="image is-4by3">
@@ -23,7 +23,6 @@
             <p class="subtitle is-6">{{post.item.user.username}}</p>
           </div>
         </div>
-
         <div class="content">
           {{post.item.caption}}
           {% for tag in post_item.tags.all %}<p><a href="{{tag.get_absolute_url}}">#{{tag}}</a>{% endfor %}</p>
@@ -34,8 +33,6 @@
     </div>
     <br>
     {% endfor %}
-    
-
   </div>
 </div>
 {% endblock %}
