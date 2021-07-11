@@ -54,3 +54,5 @@ class Stream(models.Model):
         for follower in followers:
             stream = Stream(post=post, user=follower.follower,date=post.posted, following=user)
             stream.save()
+
+post_save.connect(Stream.add_post, sender=Post)
