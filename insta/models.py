@@ -26,7 +26,7 @@ class Tag(models.Model):
             self.slug = slugify(self.title)
         return super().save()
 class Post(models.Model):
-    id = models.UUID(primary_key=True), default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     picture = models.ImageField(upload_to=user_directory_path,verbose_name='Picture', null=False)
     caption = models.TextField(max_length=1500, verbose_name='Caption')
     posted = models.DateTimeField(auto_now_add=True)
