@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,post_delete
 from django.utils.text import slugify
 from django.urls import reverse
 import uuid
-
+from notifications.models import Notification
 # Create your models here.
 
 def user_directory_path(instance,filename):
@@ -43,6 +43,22 @@ class Post(models.Model):
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE,related_name='follower')
     following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='following')
+
+    def user_follow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
+
+        notify = Notification(sender=sender, user=following, notification_type=3)
+        notify.save()
+
+    def user_unfollow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
+
+        notify = Notification.objects.filter(sender=sender, user=following, notification_type=3)
+        notify.delete()
     
 class Stream(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE,related_name='stream_following')
@@ -62,6 +78,28 @@ class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_likes')
 
-  
+    def user_liked_post(sender, instance, *args, **kwargs):
+        like = instance
+        post = like.post
+        sender = like.user
 
+        notify = Notification(post=post, sender=sender,user=post.user, notification_type = 1)
+        notify.save
+
+    def user_unlike_post(sender, instance, *args, **kwargs):
+        like = instance
+        post = like.post
+        sender = like.user
+
+        notify = Notification.objects.filter(post=post,sender=sender,notification_type=1)
+        notify.delete()
+
+
+    #Stream
 post_save.connect(Stream.add_post, sender=Post)
+    #Likes
+post_save.connect(Likes.user_liked_post, sender=Likes)
+post_delete.connect(Likes.user_unlike_post,sender=Likes)
+   #Follow
+post_save.connect(Follow.user_follow, sender=Follow)
+post_delete.connect(Follow.user_unfollow,sender=Follow)

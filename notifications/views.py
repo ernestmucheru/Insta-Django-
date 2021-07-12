@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from notifications.models import Notification
 # Create your views here.
 
-def ShowNOtifications(request):
+def ShowNotifications(request):
 	user = request.user
 	notifications = Notification.objects.filter(user=user).order_by('-date')
 	Notification.objects.filter(user=user, is_seen=False).update(is_seen=True)

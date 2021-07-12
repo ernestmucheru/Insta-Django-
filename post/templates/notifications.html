@@ -32,7 +32,7 @@
         <br>
         Commented:
       <p>{{ notification.text_preview }}</p>
-        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+        <strong><small>{{ notification.date }}</small></strong>
     </div>
   </div>
 
@@ -66,7 +66,7 @@
         <strong>{{ notification.sender.profile.first_name }} {{ notification.sender.profile.last_name }}</strong> <small>@{{ notification.sender.username }}</small> 
         <br>
         <p><i class="material-icons">person_add</i> Followed you!</p>
-        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+        <strong><small>{{ notification.date }}</small></strong>
     </div>
   </div>
 
@@ -96,7 +96,7 @@
         <strong>{{ notification.sender.profile.first_name }} {{ notification.sender.profile.last_name }}</strong> <small>@{{ notification.sender.username }}</small> 
         <br>
         <p><i class="material-icons">thumb_up</i> Liked your post</p>
-        <strong><small>{{ notification.date|naturaltime }}</small></strong>
+        <strong><small>{{ notification.date }}</small></strong>
     </div>
   </div>
 
