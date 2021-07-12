@@ -8,8 +8,9 @@ from authy.views import UserProfile,follow
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('authy.urls')),
+    path('direct/', include('direct.urls')),
     path('post/', include('post.urls')),
-    path('post/', include('post.urls')),
+    path('notifications/', include('notifications.urls')),
     path('<username>/',UserProfile, name='profile'),
     path('<username>/saved',UserProfile, name='profilefavorites'),
     path('<username>/follow/<option>', follow , name ='follow'),
