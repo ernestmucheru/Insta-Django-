@@ -6,6 +6,8 @@ from post.models import Post, Stream, Tag,Likes
 from post.forms import NewPostForm
 from django.urls import reverse
 from authy.models import Profile
+from comment.models import Comment
+from comment.forms import CommentForm
 
 
 # Create your views here.
@@ -26,23 +28,46 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-@login_required
 def PostDetails(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    favorited = False
-    #Favorite color conditionals
-    if request.user.is_authenticated:
-        profile = Profile.objects.get(user=request.user)
-    #For the color of the favorite button
-        if profile.favorites.filter(id=post_id).exists():
-            favorited = True
+	post = get_object_or_404(Post, id=post_id)
+	user = request.user
+	profile = Profile.objects.get(user=user)
+	favorited = False
 
-    template = loader.get_template('post_detail.html')
-    context = {
-        'post': post,
-        'favorited':favorited,
-        }
-    return HttpResponse(template.render(context, request))
+	#comment
+	comments = Comment.objects.filter(post=post).order_by('date')
+	
+	if request.user.is_authenticated:
+		profile = Profile.objects.get(user=user)
+		#For the color of the favorite button
+
+		if profile.favorites.filter(id=post_id).exists():
+			favorited = True
+
+	#Comments Form
+	if request.method == 'POST':
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.post = post
+			comment.user = user
+			comment.save()
+			return HttpResponseRedirect(reverse('postdetails', args=[post_id]))
+	else:
+		form = CommentForm()
+
+
+	template = loader.get_template('post_detail.html')
+
+	context = {
+		'post':post,
+		'favorited':favorited,
+		'profile':profile,
+		'form':form,
+		'comments':comments,
+	}
+
+	return HttpResponse(template.render(context, request))
 
 
 
