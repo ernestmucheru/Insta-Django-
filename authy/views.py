@@ -17,6 +17,7 @@ from django.urls import reverse
 
 
 # Create your views here.
+@login_required
 def UserProfile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)

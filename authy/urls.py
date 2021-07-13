@@ -10,7 +10,7 @@ urlpatterns = [
     path('profile/edit', EditProfile, name='edit-profile'),
    	path('signup/', Signup, name='signup'),
    	path('login/', authViews.LoginView.as_view(template_name='login.html'), name='login'),
-	path('logout/', authViews.LogoutView.as_view(), {'next_page' : 'index'}, name='logout'),
+	path('logout/', authViews.LogoutView.as_view(next_page = '/user/login'),name='logout'),
    	path('changepassword/', PasswordChange, name='change_password'),
    	path('changepassword/done', PasswordChangeDone, name='change_password_done'),
    	path('passwordreset/', authViews.PasswordResetView.as_view(), name='password_reset'),

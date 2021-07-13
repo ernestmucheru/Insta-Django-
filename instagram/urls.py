@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from authy.views import UserProfile,follow
 
 urlpatterns = [
+    path('', include('notifications.urls')),
     path('admin/', admin.site.urls),
     path('user/', include('authy.urls')),
     path('direct/', include('direct.urls')),

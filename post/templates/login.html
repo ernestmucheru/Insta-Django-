@@ -52,7 +52,7 @@
                     <button type="submit" value="login" class="button is-success"> Login </button>
                   </p>
                 </div>
-                <input type="hidden" name="next" value="{{ next }}" />
+                <input type="hidden" name="next" value="{% url 'index' %}" />
 
                 <a href="{% url 'signup'%}" class="button is-info">Create An Account</a>
 
