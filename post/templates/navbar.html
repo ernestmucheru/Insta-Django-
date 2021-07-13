@@ -1,7 +1,7 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fvectorified.com%2Fimages%2Finstagram-icon-transparent-3.png&f=1&nofb=1" width="64" height="64">
+    <a class="navbar-item" href="{% url 'index'%}">
+      <img src="https://github.com/codingmarket07/Instagram-Login-Page/blob/master/instagram.png?raw=true" width="100" height="100">
     </a>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -13,33 +13,29 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="{% url 'index'%}">
+      <!-- <a class="navbar-item" href="{% url 'index'%}">
           <span class="material-icons">
               home
               </span>
-      </a>
+      </a> -->
       <a href="{% url 'show-notifications' %}" class="navbar-item">
           <span class="material-icons">
             notifications
             </span>
        </a>
-      <a class="navbar-item">
-        <span class="material-icons">
-          explore
-          </span>
-      </a>
       <a href="{% url 'inbox' %}" class="navbar-item">
           <span class="material-icons">
               move_to_inbox
           </span>
       </a>
-      <a href="{% url 'profile' request.user%}" class="navbar-item">
-          <span class="material-icons ">person_outline</span>
-           <strong>{{ request.user }}</strong>
-      </a>
+      
       <a class="navbar-item" href="{% url 'newpost'%}">
         <span class="material-icons ">add_circle_outline</span>
     </a>
+    <a href="{% url 'profile' request.user%}" class="navbar-item">
+      <span class="material-icons ">person_outline</span>
+       <strong>{{ request.user }}</strong>
+  </a>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
           <span class="material-icons">
@@ -48,7 +44,7 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
+          <!-- <a class="navbar-item">
             Change Password
           </a>
           <a class="navbar-item">
@@ -56,13 +52,14 @@
           </a>
           <a class="navbar-item">
               Report an issue
-          </a>
+          </a> -->
           <hr class="navbar-divider">
           <a class="navbar-item" href="{% url 'logout'%}">
               Logout
           </a>
         </div>
       </div>
+
     </div>
   </div>
 </nav>
