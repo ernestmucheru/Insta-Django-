@@ -52,6 +52,4 @@ Technologies used to develop this application:
 
 Should you be unable to access the website, have any recommendations and/or questions, feel free to email me:[ernestmucheru254@gmail.com](mailto:ernestmucheru254@gmail.com)
 
-## [License](https://github.com/lornakamau/instagram-clone/blob/master/LICENSE.md)
-
 Copyright (c) 2021 [Ernest Mucheru](https://github.com/ernestmucheru)  
