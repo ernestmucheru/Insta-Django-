@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 import uuid
 from notifications.models import Notification
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 def user_directory_path(instance,filename):
@@ -27,7 +28,7 @@ class Tag(models.Model):
         return super().save()
 class Post(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-	picture = models.ImageField(upload_to=user_directory_path,verbose_name='Picture', null=False)
+	image = CloudinaryField('image', null=True)
 	caption = models.TextField(max_length=1500, verbose_name='Caption')
 	posted = models.DateTimeField(auto_now_add=True)
 	tags = models.ManyToManyField(Tag, related_name='tags')

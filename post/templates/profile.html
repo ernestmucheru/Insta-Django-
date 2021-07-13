@@ -7,8 +7,8 @@
           <article class="media">
             <div class="media-left">
               <figure class="image is-256x256">
-                {% if profile.picture %}
-                <img class="is-rounded" src=" {{profile.picture.url}}" />
+                {% if profile.image %}
+                <img class="is-rounded" src=" {{profile.image.url}}" />
                 {%else%}
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png" />
                 {%endif%}
@@ -85,7 +85,7 @@
             <div class="column is-one-quarter">
               <div class="box">
                 <figure class="image is-256x256">
-                  <a href="{{post.get_absolute_url}}"><img src="{{post.picture.url}}" alt="Image"></a>
+                  <a href="{{post.get_absolute_url}}"><img src="{{post.image.url}}" alt="Image"></a>
                 </figure>
               </div>
             </div>           

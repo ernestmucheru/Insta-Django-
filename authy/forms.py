@@ -72,7 +72,7 @@ class ChangePasswordForm(forms.ModelForm):
 		return self.cleaned_data
 
 class EditProfileForm(forms.ModelForm):
-	picture = forms.ImageField(required=False)
+	image = forms.ImageField(required=False)
 	first_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	last_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	location = forms.CharField(widget=forms.TextInput(), max_length=25, required=False)
@@ -81,4 +81,4 @@ class EditProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Profile
-		fields = ('picture', 'first_name', 'last_name', 'location', 'url', 'profile_info')
+		fields = ('image', 'first_name', 'last_name', 'location', 'url', 'profile_info')

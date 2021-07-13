@@ -79,7 +79,7 @@ def NewPost(request):
     if request.method == 'POST':
         form = NewPostForm(request.POST, request.FILES)
         if form.is_valid():
-            picture = form.cleaned_data.get('picture')
+            image = form.cleaned_data.get('image')
             caption = form.cleaned_data.get('caption')
             tags_form = form.cleaned_data.get('tags')
 
@@ -89,7 +89,7 @@ def NewPost(request):
                 t,created = Tag.objects.get_or_create(title=tag)
                 tags_objs.append(t)
 
-            p, created = Post.objects.get_or_create(picture=picture, caption=caption, user_id=user)
+            p, created = Post.objects.get_or_create(image=image, caption=caption, user_id=user)
             p.tags.set(tags_objs)
             p.save()
             return redirect('index')

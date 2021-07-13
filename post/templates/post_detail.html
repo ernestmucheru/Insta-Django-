@@ -8,15 +8,15 @@
           <div class="card">
             <div class="card-image">
               <figure class="image is-4by3">
-                <img src="{{post.picture.url}}" alt="Placeholder image">
+                <img src="{{post.image.url}}" alt="Placeholder image">
               </figure>
             </div>
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    {% if post.user.profile.picture %}
-                      <img src="{{ post.user.profile.picture.url }}" alt="Placeholder image">
+                    {% if post.user.profile.image %}
+                      <img src="{{ post.user.profile.image.url }}" alt="Placeholder image">
                     {% else %}
                       <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
                     {% endif %}
@@ -63,8 +63,8 @@
             <article class="media">
               <figure class="media-left">
                 <p class="image is-48x48">
-                  {% if comment.user.profile.picture %}
-                      <img src="{{ post.user.profile.picture.url }}" alt="Placeholder image">
+                  {% if comment.user.profile.image %}
+                      <img src="{{ post.user.profile.image.url }}" alt="Placeholder image">
                     {% else %}
                       <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
                     {% endif %}
@@ -94,8 +94,8 @@
           <article class="media">
             <figure class="media-left">
               <p class="image is-64x64">
-                {% if request.user.profile.picture %}
-                      <img src="{{ request.user.profile.picture.url }}" alt="Placeholder image">
+                {% if request.user.profile.image %}
+                      <img src="{{ request.user.profile.image.url }}" alt="Placeholder image">
                     {% else %}
                       <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
                     {% endif %}
